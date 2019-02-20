@@ -4,10 +4,10 @@ info:
   description: "A simple API to learn how to write OpenAPI Specification"
   version: "1.0.0"
   title: "Simple API"
-host: "simple.api"
+host: "localhost:8080"
 basePath: "/openapi101"
 schemes:
-- "https"
+- "http"
 paths:
   /persons:
     get:
@@ -24,7 +24,6 @@ paths:
         exclusiveMaximum: false
         minimum: 0
         exclusiveMinimum: true
-        multipleOf: 10
         format: "int32"
       - name: "pageNumber"
         in: "query"

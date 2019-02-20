@@ -6,6 +6,10 @@ from swagger_server.models.person import Person  # noqa: E501
 from swagger_server.models.persons import Persons  # noqa: E501
 from swagger_server import util
 
+from flask import request, abort, Response, jsonify
+
+persons_list = []
+
 
 def persons_get(pageSize=None, pageNumber=None):  # noqa: E501
     """Get persons
@@ -19,7 +23,10 @@ def persons_get(pageSize=None, pageNumber=None):  # noqa: E501
 
     :rtype: Persons
     """
-    return 'do some magic!'
+    res = []
+    if pageSize is not None and pageNumber is not None:
+        res = persons_list[(pageNumber-1)*pageSize:pageNumber*pageSize]
+    return jsonify(items=res)
 
 
 def persons_post(person=None):  # noqa: E501
@@ -35,7 +42,7 @@ def persons_post(person=None):  # noqa: E501
     if connexion.request.is_json:
         person = Person.from_dict(connexion.request.get_json())  # noqa: E501
         persons_list.append(person)
-    return Response(mimetype=​ 'application/json'​ ,status=​ 204​)
+    return Response(mimetype='application/json', status=204)
 
 
 def persons_username_delete(username):  # noqa: E501
