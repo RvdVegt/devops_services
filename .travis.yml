@@ -18,7 +18,7 @@ before_script:
 - node_modules/.bin/newman --version
 script:
 - nosetests
-- docker build -tsealclaw/devops_services/swagger_server .
+- docker build -t sealclaw/devops_services/swagger_server .
 - docker run --name example_api -d -t -p 127.0.0.1:8080:8080 my/swagger_server
 - docker ps
 - count=0 && until $(curl --output /dev/null --silent --head --fail http://localhost:8080);
