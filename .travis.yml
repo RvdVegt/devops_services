@@ -18,7 +18,7 @@ before_script:
 - node_modules/.bin/newman --version
 script:
 - nosetests
-- docker build -t sealclaw/devops_services/swagger_server .
+- docker build -t sealclaw/devops_services:swagger_server .
 - docker run --name example_api -d -t -p 127.0.0.1:8080:8080 my/swagger_server
 - docker ps
 - count=0 && until $(curl --output /dev/null --silent --head --fail http://localhost:8080);
@@ -26,8 +26,8 @@ script:
   fi; done
 after_success:
 - docker login -u $DOCKER_USER -p $DOCKER_PASS
-- docker tag sealclaw/devops_services/swagger_server sealclaw/devops_services/swagger_server
-- docker push sealclaw/devops_services/swagger_server
+- docker tag sealclaw/devops_services:swagger_server sealclaw/devops_services:swagger_server
+- docker push sealclaw/devops_services:swagger_server
 env:
   global:
   - secure: dmxHhSVs4yPiYtNJFY3QErsCKMiQTZtauqezTqteVm2UYH6u3CoYvMcZ871LpRxMtPkLlehgbILHjMRIvOz/c4YKmQjn9NpIlGhULXuCCMv7rNPZEA0iJBgsIvZXsEUmYcc+jFG2BpgjQhFb6/muHWdzZzxwDUv1Fu4BbjvwFQOr8cNyMSDRb8YtdGq6Y/JljtaPqcVlAw/bfxZt5WBNczBsfOaettEdw3/I+MDzZ8i0nWgGBis8tlwpsLAjiR9m54sufdVTV+w2zeeYYM6wPlcibrzt2bUK/4XUoO5poypx20F5gdueEUkRaTj/082bnvMsjI1rr4BWGZ9V990ohNpQLS/LryhS9Pso2YOtGeQ6BuLzXkZK+3WwMeKo7r+0uUfy9lR3tMx5y2wOPtFfQ9+3QZ1/xzqDuRLsektR9Vv+HNUXualRYr+geMfhgrfkCq3DaPYCU912aoSK3cbtnWkHeRTttpHPPsq3T2mxRJlUTkPibHlg3V0NIS8PRfkiwEv8bW8bItxzc/aPE1/PtUKsuXhJZx6g/kdtCHN9IdwjcePdRnrn3GpzsHxm1lCblawdFpsHegxJ4YxEwFEsVw696mRPPdbp9HFBXsYbYYhFh3EYeAnxAYQDC4Z3GdoNAHH+p1MoP+yE8LBwLuZpdQunxE/1mEyPSqJp7DBm0Zo=
